@@ -21,9 +21,10 @@
 
         body {
             background-color: #222;
+            /* Sfondo scuro per far risaltare la 'carta' */
             display: flex;
             justify-content: center;
-            align-items: center; /* Centra verticalmente su desktop */
+            align-items: center;
             min-height: 100vh;
             padding: 20px;
             font-family: 'EB Garamond', serif;
@@ -31,11 +32,13 @@
 
         /* Contenitore principale che simula la pergamena */
         .page-container {
-            background-color: #fcf5e5;
-            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+
+            background-color: #fcefcd;
+            background-image: url("https://www.transparenttextures.com/patterns/rice-paper-3.png");
+            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
             width: 100%;
             max-width: 700px;
-            padding: 60px 50px; /* Padding ampio per Desktop */
+            padding: 60px 50px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(139, 69, 19, 0.2);
             color: #2e2e2e;
             text-align: center;
@@ -43,12 +46,16 @@
             border: 1px solid #d4c5a0;
         }
 
-        /* Decorazione dei bordi */
+        /* Decorazione dei bordi (simulata con CSS border) */
         .page-container::before {
             content: "";
             position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
             border: 2px solid #8b0000;
+            /* Bordo rosso scuro interno */
             opacity: 0.3;
             pointer-events: none;
         }
@@ -57,6 +64,7 @@
         h1 {
             font-family: 'Pinyon Script', cursive;
             color: #8b0000;
+            /* Rosso scuro */
             font-size: 3.5rem;
             margin-bottom: 30px;
             line-height: 1.2;
@@ -71,10 +79,11 @@
             color: #1a1a1a;
         }
 
-        /* Enfasi */
+        /* Enfasi nel testo (corsivo/colore) */
         .highlight {
             font-style: italic;
             color: #5a0000;
+            /* Leggermente più scuro/rosso */
             font-weight: 600;
         }
 
@@ -91,7 +100,8 @@
         .separator::after {
             content: "✦";
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fcf5e5;
             padding: 0 10px;
@@ -99,7 +109,7 @@
             font-size: 1.2rem;
         }
 
-        /* Titoli delle sezioni */
+        /* Titoli delle sezioni (I. La Piazza, ecc.) */
         h2 {
             font-family: 'Pinyon Script', cursive;
             color: #8b0000;
@@ -107,15 +117,17 @@
             margin: 30px 0 15px 0;
             font-weight: normal;
             display: inline-block;
+            border-bottom: 1px solid transparent;
+            /* Per spaziatura */
         }
 
+        /* Decorazione ai lati dei titoli h2 */
         .section-header {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
-            flex-wrap: wrap; /* Permette a decorazioni e testo di andare a capo se necessario */
         }
 
         h2::before,
@@ -127,49 +139,98 @@
             font-family: serif;
         }
 
+        /* Footer / Testo finale */
+        .footer-text {
+            margin-top: 40px;
+            font-style: italic;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .final-message {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #8b0000;
+        }
+
+        /* Media query per schermi piccoli */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-container {
+                padding: 30px 20px;
+            }
+        }
+
         .final-section {
             margin-top: 70px;
+            /* Aumentato spazio sopra */
             padding-top: 50px;
             position: relative;
             border-top: 1px solid rgba(139, 0, 0, 0.3);
         }
 
-        /* --- SIGILLO --- */
+        /* --- SIGILLO IN PURO CSS (Senza Immagini) --- */
+
         .wax-seal {
             width: 90px;
             height: 90px;
             background-color: #8b0000;
+            /* Rosso ceralacca */
+
+            /* Questo crea la forma irregolare "a blob", come cera vera */
             border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+
+            /* Posizionamento a cavallo della linea */
             margin: -75px auto 25px auto;
+
+            /* Flexbox per centrare la lettera interna */
             display: flex;
             justify-content: center;
             align-items: center;
+
+            /* Effetti 3D: Ombra esterna + Luce interna + Ombra interna */
             box-shadow:
                 0 5px 8px rgba(0, 0, 0, 0.4),
+                /* Ombra sul foglio */
                 inset 4px 4px 10px rgba(255, 255, 255, 0.2),
+                /* Luce in alto a sx */
                 inset -3px -3px 8px rgba(0, 0, 0, 0.3);
+            /* Ombra in basso a dx */
+
             color: #f0e6d2;
+            /* Colore della lettera (crema scuro) */
             font-family: 'Pinyon Script', cursive;
             font-size: 3rem;
             position: relative;
             transform: rotate(10deg);
+            /* Leggera rotazione realistica */
         }
 
+        /* Cerchio interno inciso (effetto stampo) */
         .wax-seal::after {
             content: "";
             position: absolute;
-            width: 65%; height: 65%;
+            width: 65%;
+            height: 65%;
             border-radius: 50%;
             border: 2px solid rgba(80, 0, 0, 0.4);
+            /* Bordo scuro inciso */
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            /* Bordo chiaro per rilievo */
         }
 
+        /* Stile per la firma grande */
         .signature {
             font-family: 'Pinyon Script', cursive;
             font-size: 3rem;
             color: #8b0000;
             margin-top: 30px;
             transform: rotate(-3deg);
+            /* Leggera inclinazione per sembrare scritta a mano */
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
@@ -177,14 +238,21 @@
             font-family: 'EB Garamond', serif;
             font-style: italic;
             font-size: 1.3rem;
+            /* Leggermente più grande */
             line-height: 1.8;
             color: #5a1a1a;
+            /* Rosso scuro spento */
+
+            /* Effetto "blocco di testo" stretto */
             margin: 40px auto;
-            width: 60%; /* Desktop width */
+            width: 80%;
             padding: 20px;
+
             background-color: rgba(139, 69, 19, 0.05);
+            /* Sfondo impercettibile */
             border-radius: 4px;
             border: 1px double rgba(139, 0, 0, 0.2);
+            /* Bordo doppio sottile */
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
@@ -192,67 +260,6 @@
             margin-top: 20px;
             font-size: 1.3rem;
             color: #8b0000;
-            font-weight: bold;
-        }
-
-        /* --- MEDIA QUERIES PER MOBILE --- */
-        @media (max-width: 768px) {
-            body {
-                /* Su mobile, rimuoviamo l'align-center verticale per evitare
-                   che l'inizio della pagina venga tagliato se si scorre */
-                align-items: flex-start; 
-                padding: 10px;
-            }
-
-            .page-container {
-                /* Riduciamo drasticamente il padding interno */
-                padding: 40px 20px;
-            }
-
-            /* Aggiustiamo il bordo decorativo per stare più vicino al margine */
-            .page-container::before {
-                top: 8px; left: 8px; right: 8px; bottom: 8px;
-            }
-
-            h1 {
-                font-size: 2.5rem; /* Titolo più piccolo */
-                margin-bottom: 20px;
-            }
-
-            h2 {
-                font-size: 1.8rem; /* Sottotitoli più piccoli */
-            }
-            
-            /* Rimuoviamo i decori laterali dei titoli se lo schermo è troppo stretto */
-            h2::before, h2::after {
-                margin: 0 5px;
-            }
-
-            p {
-                font-size: 1.05rem; /* Leggermente più piccolo */
-                text-align: left; /* Migliora la lettura su colonne strette */
-                text-align: justify; /* Opzionale: giustificato elegante */
-            }
-
-            /* Il blocco finale deve allargarsi su mobile */
-            .final-body {
-                width: 100%; 
-                margin: 30px auto;
-                font-size: 1.15rem;
-                padding: 15px;
-            }
-
-            .wax-seal {
-                /* Ridimensioniamo leggermente il sigillo */
-                width: 70px;
-                height: 70px;
-                font-size: 2.2rem;
-                margin-top: -60px; /* Aggiustiamo la sovrapposizione */
-            }
-            
-            .signature {
-                font-size: 2.2rem;
-            }
         }
     </style>
 </head>
