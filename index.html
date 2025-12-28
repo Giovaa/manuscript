@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Manoscritto del Viandante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Pinyon+Script&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Reset di base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #222;
+            /* Sfondo scuro per far risaltare la 'carta' */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'EB Garamond', serif;
+        }
+
+        /* Contenitore principale che simula la pergamena */
+        .page-container {
+            background-color: #fcf5e5;
+            /* Colore carta avorio/beige */
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            /* Texture carta opzionale */
+            width: 100%;
+            max-width: 700px;
+            padding: 60px 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(139, 69, 19, 0.2);
+            color: #2e2e2e;
+            text-align: center;
+            position: relative;
+            border: 1px solid #d4c5a0;
+        }
+
+        /* Decorazione dei bordi (simulata con CSS border) */
+        .page-container::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid #8b0000;
+            /* Bordo rosso scuro interno */
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Titolo Principale */
+        h1 {
+            font-family: 'Pinyon Script', cursive;
+            color: #8b0000;
+            /* Rosso scuro */
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Testo generale */
+        p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        /* Enfasi nel testo (corsivo/colore) */
+        .highlight {
+            font-style: italic;
+            color: #5a0000;
+            /* Leggermente più scuro/rosso */
+            font-weight: 600;
+        }
+
+        /* Separatori decorativi */
+        .separator {
+            margin: 25px auto;
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b0000, transparent);
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .separator::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fcf5e5;
+            padding: 0 10px;
+            color: #8b0000;
+            font-size: 1.2rem;
+        }
+
+        /* Titoli delle sezioni (I. La Piazza, ecc.) */
+        h2 {
+            font-family: 'Pinyon Script', cursive;
+            color: #8b0000;
+            font-size: 2.2rem;
+            margin: 30px 0 15px 0;
+            font-weight: normal;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            /* Per spaziatura */
+        }
+
+        /* Decorazione ai lati dei titoli h2 */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        h2::before,
+        h2::after {
+            content: "•~•";
+            font-size: 0.6em;
+            color: #8b0000;
+            margin: 0 10px;
+            font-family: serif;
+        }
+
+        /* Footer / Testo finale */
+        .footer-text {
+            margin-top: 40px;
+            font-style: italic;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .final-message {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #8b0000;
+        }
+
+        /* Media query per schermi piccoli */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-container {
+                padding: 30px 20px;
+            }
+        }
+
+        .final-section {
+            margin-top: 70px;
+            /* Aumentato spazio sopra */
+            padding-top: 50px;
+            position: relative;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+        }
+
+        /* --- SIGILLO IN PURO CSS (Senza Immagini) --- */
+
+        .wax-seal {
+            width: 90px;
+            height: 90px;
+            background-color: #8b0000;
+            /* Rosso ceralacca */
+
+            /* Questo crea la forma irregolare "a blob", come cera vera */
+            border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+
+            /* Posizionamento a cavallo della linea */
+            margin: -75px auto 25px auto;
+
+            /* Flexbox per centrare la lettera interna */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Effetti 3D: Ombra esterna + Luce interna + Ombra interna */
+            box-shadow:
+                0 5px 8px rgba(0, 0, 0, 0.4),
+                /* Ombra sul foglio */
+                inset 4px 4px 10px rgba(255, 255, 255, 0.2),
+                /* Luce in alto a sx */
+                inset -3px -3px 8px rgba(0, 0, 0, 0.3);
+            /* Ombra in basso a dx */
+
+            color: #f0e6d2;
+            /* Colore della lettera (crema scuro) */
+            font-family: 'Pinyon Script', cursive;
+            font-size: 3rem;
+            position: relative;
+            transform: rotate(10deg);
+            /* Leggera rotazione realistica */
+        }
+
+        /* Cerchio interno inciso (effetto stampo) */
+        .wax-seal::after {
+            content: "";
+            position: absolute;
+            width: 65%;
+            height: 65%;
+            border-radius: 50%;
+            border: 2px solid rgba(80, 0, 0, 0.4);
+            /* Bordo scuro inciso */
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            /* Bordo chiaro per rilievo */
+        }
+
+        /* Stile per la firma grande */
+        .signature {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 3rem;
+            color: #8b0000;
+            margin-top: 30px;
+            transform: rotate(-3deg);
+            /* Leggera inclinazione per sembrare scritta a mano */
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .final-body {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            /* Leggermente più grande */
+            line-height: 1.8;
+            color: #5a1a1a;
+            /* Rosso scuro spento */
+
+            /* Effetto "blocco di testo" stretto */
+            margin: 40px auto;
+            width: 60%;
+            padding: 20px;
+
+            background-color: rgba(139, 69, 19, 0.05);
+            /* Sfondo impercettibile */
+            border-radius: 4px;
+            border: 1px double rgba(139, 0, 0, 0.2);
+            /* Bordo doppio sottile */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .final-message {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #8b0000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-container">
+        <h1>Il Manoscritto del Viandante</h1>
+
+        <p>
+            Tutti pensavano che il manoscritto fosse solo una vecchia favola natalizia,
+            dimenticata in fondo a una libreria —uno di quei volumi che nessuno apre più—<br>
+            Eppure, chi lo prendeva in mano aveva la sensazione che il testo lo stesse osservando.
+        </p>
+
+        <p>
+            Il racconto parlava di un Natale che cambiava forma, come se ricordasse più di quanto fosse stato
+            scritto.<br>
+            Le frasi sembravano normali, ma a rileggerle si notava che alcune pesavano più di altre, scelte con cura per
+            restare.
+        </p>
+
+        <p>
+            Il protagonista attraversava tre luoghi nella stessa notte.<br>
+            Non erano descritti per la loro bellezza, ma per ciò che mancava in ognuno.
+        </p>
+        <br>
+        <div class="separator"></div>
+
+        <div class="section-header">
+            <h2>I. La Piazza</h2>
+        </div>
+
+        <p>
+            Nel primo luogo, <span class="highlight">una piazza colma di luci</span>, dove non c’era suono.<br>
+            Il silenzio non era vuoto, ma tagliava le frasi prima che finissero.<br>
+            Il viandante cercò l'eco di un passo o il rintocco di una festa, ma si fermò—<br>
+            Tese l'orecchio per un sussurro, ma non udì che il nulla.<br>
+            Persino il grido del vento o il rumore della neve sembravano voler dire—<br>
+            Ogni parola moriva dove il silenzio decideva di fermarsi—
+        </p>
+        <br>
+        <div class="separator"></div>
+        <div class="section-header">
+            <h2>II. Il Bosco</h2>
+        </div>
+
+        <p>
+            Nel secondo luogo, <span class="highlight">un bosco immobile</span>, dove non c’era ombra.<br>
+            Non c'era buio, ma una luce che cancellava ciò che si vede.<br>
+            Gli alberi sembravano presenti, ma senza contorno; il sentiero c’era, ma non appariva davvero.<br> Lo
+            sguardo
+            cercava forme —o almeno un barlume— ma non trovava immagini, perché nulla lasciava figura nella mente,
+            come se la vista stessa fosse priva di ogni cosa.
+        </p>
+        <br>
+        <div class="separator"></div>
+
+        <div class="section-header">
+            <h2>III. La Casa</h2>
+        </div>
+        <p>
+            Nel terzo luogo, <span class="highlight">una casa piena di voci</span> —echi di una festa lontana—, dove
+            non c’era tempo.<br> Il racconto procedeva, ma ogni riferimento si spezzava.<br>
+            Le frasi parlavano di un’attesa infinita, di un ritardo accumulato tra le mura, di un momento che non
+            diventava mai ricordo.<br> Si udivano storie di epoche ormai passate e di un domani che non arrivava
+            mai.<br> La
+            casa viveva di interruzioni —istanti sospesi— come se il tempo si fosse fermato.
+        </p>
+
+        <div class="final-section">
+            <div class="wax-seal">V</div>
+
+            <p class="final-body">
+                Ciò che conta non è quante volte passi, ma dove ti fermi.<br>
+                Natale non parla a chi corre,<br>
+                Ma a chi torna indietro.
+            </p>
+
+            <p class="final-message">
+                Ora sai cosa conta davvero.
+            </p>
+
+            <div class="signature">
+                Buon Natale!
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
